@@ -8,19 +8,21 @@ import javax.swing.*;
 public class Panel extends JPanel{
 
 	private JPanel panel1, panel2;
-	private int count = 0;
-	private int width = 0, height = 0;
+	private int count;
+	private int width, height;
 	private JLabel[] label, num;
 	private JButton[] button;
 	private JTextField text2, text3, text4, text5, text6, text7;
 	
 	public Panel(int width, int height){
 		
+		count = 0;
+		
 		this.width = width;
 		this.height = height;
 		
 		panel1 = new JPanel(new GridLayout(8,4));
-		panel2 = new JPanel();
+		panel2 = new JPanel(); //buttons
 		
 		this.setSize(width, height);
 		this.setLayout(new BorderLayout());
@@ -33,13 +35,15 @@ public class Panel extends JPanel{
 		for(int i=0; i<10; i++)
 			num[i] = new JLabel();
 		
-		button = new JButton[3];
+		button = new JButton[4];
 		button[0] = new JButton("Novo Mes");
 		button[0].addActionListener(new ButtonListener());
 		button[1] = new JButton("New Job");
 		button[1].addActionListener(new ButtonListener());
 		button[2] = new JButton("Atualizar");
 		button[2].addActionListener(new ButtonListener());
+		button[3] = new JButton("Voltar Mes");
+		button[3].addActionListener(new ButtonListener());
 		
 		text2 = new JTextField("0");
 		text3 = new JTextField("0");
@@ -125,6 +129,7 @@ public class Panel extends JPanel{
 		panel2.add(button[0]);
 		panel2.add(button[2]);
 		panel2.add(button[1]);
+		panel2.add(button[3]);
 		
 		this.add(panel1, BorderLayout.CENTER);
 		this.add(panel2, BorderLayout.SOUTH);
@@ -160,6 +165,11 @@ public class Panel extends JPanel{
 	    		num[4].setText("0");//fundo total acumulado
 	    		num[9].setText("0");//novo mes
 	    		count = 0;//novo mes
+	    	}
+	    	
+	    	if(e == button[3] && count>0){
+	    		count--; //voltar mes
+	    		num[9].setText(String.valueOf(count)); //mes anterior
 	    	}
 	    	
 	    }
